@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="../css/animate.css">
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+        <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+        <title></title>
+        <style>
+        .parent{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1600px;
+            height: 711px;
+            background-image: url(../img/background.png);
+            z-index: -5;
+        }
+            img{
+                width: 120px;
+                height: 90px;
+                position: absolute;
+            }
+            #progressbar {
+                position: absolute;
+                top: 360px;
+                left: 525px;
+                height: 10px;
+                width: 500px;
+                border: 1px solid #63B8FF;
+                border-radius: 5px;
+                text-align: center;
+                line-height: 10px;
+                font-size: 0.8em;
+            }
+
+            #progress {
+                position: absolute;
+                /*  border:1px solid;*/
+                height: 100%;
+                width: 0;
+                background: #BFEFFF;
+                border-radius: 5px;
+                z-index: -1;
+            }
+
+            #progress {
+                background-size: 30px 30px;
+                background-image: -webkit-linear-gradient(-45deg, #63B8FF, #63B8FF 25%, #BFEFFF 25%, #BFEFFF 50%, #63B8FF 50%, #63B8FF 75%, #BFEFFF 75%, #BFEFFF);
+                background-image: -moz-linear-gradient(-45deg, #63B8FF, #63B8FF 25%, #BFEFFF 25%, #BFEFFF 50%, #63B8FF 50%, #63B8FF 75%, #BFEFFF 75%, #BFEFFF);
+                background-image: linear-gradient(-45deg, #63B8FF, #63B8FF 25%, #BFEFFF 25%, #BFEFFF 50%, #63B8FF 50%, #63B8FF 75%, #BFEFFF 75%, #BFEFFF);
+                -webkit-animation: animate 1.5s linear infinite;
+                -moz-animation: animate 1.5s linear infinite;
+                animation: animate 1.5s linear infinite;
+            }
+
+            @-webkit-keyframes animate {
+                from {
+                    background-position: 0 0;
+                }
+                to {
+                    background-position: 60px 30px;
+                }
+            }
+
+            @-moz-keyframes animate {
+                from {
+                    background-position: 0 0;
+                }
+                to {
+                    background-position: 60px 30px;
+                }
+            }
+
+            @keyframes animate {
+                from {
+                    background-position: 0 0;
+                }
+                to {
+                    background-position: 60px 30px;
+                }
+            }
+            #ton{
+                position: absolute;
+                left: 756px;
+                top: 380px;
+                width: 50px;
+                height: 50px;
+                border:2px solid #8B4513;
+                background-color: transparent;
+                border-radius: 50%;
+                -webkit-animation-iteration-count: infinite;
+                /*-webkit-animation-delay:myfirst 5s;
+                -webkit-animation-duration:myfirst 1.5s;
+                -webkit-animation-iteration-count:myfirst infinite;
+*/
+            }
+
+           /* @-wedkit-keyframes myfirst{
+               from{
+                  opacity: 100%;}
+               
+               to{
+                opacity: 0%;
+               }
+            }*/
+            #ton > span{
+               /*
+                -webkit-animation-delay:myfirst 5s;
+                -webkit-animation-duration:myfirst 1.5s;
+                -webkit-animation-iteration-count:myfirst infinite;*/
+                margin-left: 13px;
+                color: #8B4513;
+                margin-top: 11px;
+                font-size: 24px;
+            }
+            .none{
+                display: none;
+            }
+            .block{
+                display: block;
+            }
+
+        </style>
+    </head>
+    <body>
+    <div class="parent">
+        <img id="fish" src="../img/bird1.png" style="top: 230px; left: 735px;" />
+
+
+        <div id="progressbar">
+            <div id='progress'></div>
+            <p class="p"></p>
+           
+        </div>
+        <div id="ton"><span class="glyphicon glyphicon-chevron-down"></span></div>
+    </div>
+    </body>
+    <script>
+        $('#ton').animate({color:'#8B4513',opacity:'0.6'},"slow");
+        var images = [];
+        for(var i=1;i<=3;i++){
+            images[i] = '../img/bird' + i + '.png';
+        }
+        //console.log(images);
+        var fish = document.getElementById('fish');
+        var index = 1;
+        setInterval(function(){
+            index++;
+            // 如果图片下标的位置大于图片数组的长度，重置为0
+            if (index >= images.length){
+                index = 1;
+            }
+            fish.src = images[index];
+            // fish.style.left = parseInt(fish.style.left) + 1 + 'px';
+        }, 1000/10);
+
+
+
+        window.onload = function() {
+                var now = 0;
+                var timer = setInterval(function() {
+                    if(now == 100) {
+                        clearInterval(timer);
+                        ddd();
+                        window.location.href = '#';
+                    } else {
+                        now += 1;
+                        progressfn(now);
+                        document.getElementById('ton').setAttribute('class','none');
+                    }
+                }, 50);
+            }   
+
+            function progressfn(cent) {
+               var progressbar = document.getElementById("progressbar");
+               progressbar = progressbar.getElementsByClassName("p");
+                progressbar[0].innerHTML = cent + "%";
+                var progress = document.getElementById("progress");
+                progress.style.width = cent + "%";
+            }
+            function ddd(){
+                document.getElementById('progressbar').setAttribute('class','none');
+                document.getElementById('ton').setAttribute('class','block');
+                $('#ton').addClass('animated pulse');
+            }
+
+    </script>
+</html>
